@@ -51,11 +51,7 @@ section { padding-top:40px }
 .viewport { position:relative; aspect-ratio:16/9; overflow:hidden; container-type:size; isolation:isolate;
   --p:calc(100cqh / 1080); font-family:var(--fb); clip-path:polygon(0 0,calc(100% - var(--cut)) 0,100% var(--cut),100% 100%,var(--cut) 100%,0 calc(100% - var(--cut))) }
 .viewport * { --sz:calc(var(--p) * var(--ts)) }
-.scene { position:absolute; inset:0; z-index:-1 }
-body[data-scene=night] .scene { background:radial-gradient(60% 40% at 70% 30%, #1d2732 0, transparent 70%), linear-gradient(180deg,#05070a 0,#0b1016 58%,#151b20 58.2%,#0d1114 100%) }
-body[data-scene=snow] .scene { background:radial-gradient(40% 30% at 30% 20%, #fff 0, transparent 70%), linear-gradient(180deg,#e9f1f7 0,#ffffff 56%,#dfe7ee 56.2%,#f7fafc 100%) }
-body[data-scene=forest] .scene { background:radial-gradient(50% 40% at 50% 10%, #9fb38a 0, transparent 70%), linear-gradient(180deg,#6d8466 0,#3f5a3a 55%,#2b3a22 55.2%,#4a5530 100%) }
-body[data-scene=desert] .scene { background:radial-gradient(45% 35% at 60% 15%, #fff4d6 0, transparent 70%), linear-gradient(180deg,#f2d7a8 0,#e9c58f 55%,#c99a5d 55.2%,#e2b97d 100%) }
+.scene { position:absolute; inset:0; z-index:-1; background:#0b1016 center/cover no-repeat; transition:background-image var(--t-slow) }
 .viewport { --o:max(1px, calc(2 * var(--p))) }
 .viewport [class^=h-] { text-shadow: var(--o) 0 0 var(--halo), calc(-1*var(--o)) 0 0 var(--halo), 0 var(--o) 0 var(--halo), 0 calc(-1*var(--o)) 0 var(--halo),
   calc(.7*var(--o)) calc(.7*var(--o)) 0 var(--halo), calc(-.7*var(--o)) calc(.7*var(--o)) 0 var(--halo), calc(.7*var(--o)) calc(-.7*var(--o)) 0 var(--halo), calc(-.7*var(--o)) calc(-.7*var(--o)) 0 var(--halo),

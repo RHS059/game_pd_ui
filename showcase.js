@@ -23,20 +23,21 @@ function applyTheme(name) {
 }
 
 function bindControls() {
-  const theme = $('#theme'), scene = $('#scene'), cvd = $('#cvd'), input = $('#input'), ts = $('#ts'), rm = $('#rm'), density = $('#density');
-  theme.value = load('theme', 'operator'); scene.value = load('scene', 'night'); cvd.value = load('cvd', 'none');
+  const theme = $('#theme'), scene = $('#scene'), tod = $('#tod'), cvd = $('#cvd'), input = $('#input'), ts = $('#ts'), rm = $('#rm'), density = $('#density');
+  theme.value = load('theme', 'operator'); scene.value = load('loc', 'city'); tod.value = load('tod', 'day'); cvd.value = load('cvd', 'none');
   input.value = load('input', 'kbm'); ts.value = load('ts', '100'); density.value = load('density', 'standard');
   rm.checked = load('rm', matchMedia('(prefers-reduced-motion: reduce)').matches ? '1' : '0') === '1';
   const sync = () => {
     applyTheme(theme.value);
-    body.dataset.scene = scene.value; save('scene', scene.value);
+    const sc = `${scene.value}_${tod.value}`; body.dataset.scene = sc; $('.scene').style.backgroundImage = `url(scenes/${sc}.jpg)`;
+    save('loc', scene.value); save('tod', tod.value);
     body.className = body.className.replace(/cvd-\w+/g, '').trim(); if (cvd.value !== 'none') body.classList.add('cvd-' + cvd.value); save('cvd', cvd.value);
     setInput(input.value);
     document.documentElement.style.setProperty('--ts', ts.value / 100); $('#tsv').textContent = ts.value + '%'; ts.setAttribute('aria-valuetext', ts.value + ' percent'); save('ts', ts.value);
     body.classList.toggle('rm', rm.checked); body.classList.toggle('rm-off', !rm.checked); save('rm', rm.checked ? '1' : '0');
     body.dataset.density = density.value; save('density', density.value);
   };
-  [theme, scene, cvd, input, ts, rm, density].forEach(el => el.addEventListener('input', sync));
+  [theme, scene, tod, cvd, input, ts, rm, density].forEach(el => el.addEventListener('input', sync));
   sync();
 }
 
@@ -172,6 +173,8 @@ function buildTypeMotion() {
 }
 
 // ---------- boot ----------
+// Preload the other scenes so switching is instant.
+addEventListener('load', () => ['city', 'field', 'desert', 'forest', 'beach'].forEach(l => ['day', 'night'].forEach(t => { new Image().src = `scenes/${l}_${t}.jpg`; })));
 (async () => {
   try { TOKENS = await (await fetch('tokens.json', { cache: 'no-cache' })).json(); } catch { TOKENS = FALLBACK; }
   bindControls(); bindHud(); buildFrontEnd(); buildTypeMotion(); setInput(body.dataset.input);
