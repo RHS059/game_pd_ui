@@ -1,0 +1,94 @@
+<!doctype html><html><head><meta charset="utf-8"><title>FIELD specimen</title><style>
+@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@500;600&family=Barlow+Condensed:wght@600&family=Barlow+Semi+Condensed:wght@500&family=Chakra+Petch:wght@700&family=IBM+Plex+Sans+Condensed:wght@500&family=IBM+Plex+Sans:wght@500&family=Saira+Condensed:wght@600&family=Saira:wght@500&display=swap');
+body{margin:0;background:#000;display:grid;grid-template-columns:1fr 1fr;gap:4px}
+.frame{position:relative;aspect-ratio:16/9;overflow:hidden;font-family:var(--fb);color:var(--text);font-size:14px}
+.frame *{text-shadow:0 0 1px var(--halo),0 0 2px var(--halo),0 0 3px var(--halo),0 2px 4px rgba(0,0,0,.5)}
+.tag{position:absolute;left:8px;top:6px;font:600 11px var(--fb);letter-spacing:.08em;text-transform:uppercase;color:var(--text)}
+.compass{position:absolute;top:5%;left:50%;transform:translateX(-50%);display:flex;gap:18px;font:600 15px var(--fd);letter-spacing:.06em}
+.obj{color:var(--objective)}.en{color:var(--enemy)}.fr{color:var(--friendly)}
+.feed{position:absolute;right:5%;top:12%;display:grid;gap:3px}
+.row{background:color-mix(in srgb,var(--scrim) calc(var(--scrim-a)*100%),transparent);padding:3px 8px;font:600 13px var(--fd);letter-spacing:.04em}
+.row.me{box-shadow:inset 2px 0 0 var(--accent)}
+.reticle{position:absolute;left:50%;top:50%;width:4px;height:4px;margin:-2px;background:var(--text);border-radius:50%;box-shadow:0 0 0 2px var(--halo)}
+.prompt{position:absolute;left:50%;top:62%;transform:translateX(-50%);background:color-mix(in srgb,var(--scrim) calc(var(--scrim-a)*100%),transparent);padding:4px 10px;font:600 14px var(--fb)}
+kbd{display:inline-block;border:2px solid var(--text);padding:0 5px;margin-right:6px;font:600 12px var(--fd)}
+.health{position:absolute;left:5%;bottom:7%}.lbl,.res,.wpn{color:var(--text2);font:600 12px var(--fb);letter-spacing:.08em}
+.bar{display:flex;gap:3px;margin:3px 0}.bar i{width:34px;height:8px;background:var(--critical);box-shadow:0 0 0 1.5px var(--halo)}.bar i.off{background:transparent;outline:1.5px solid var(--text2)}
+.bar i:not(.crit):not(.off){background:var(--critical)}
+.crit-t{color:var(--critical);font:600 13px var(--fd);letter-spacing:.08em}
+.ammo{position:absolute;right:5%;bottom:7%;text-align:right}.mag{font:600 46px/1 var(--fd);color:var(--warning);font-variant-numeric:tabular-nums}
+.low{color:var(--warning);font:600 12px var(--fd);letter-spacing:.08em}
+.sub{position:absolute;left:50%;bottom:16%;transform:translateX(-50%);background:color-mix(in srgb,var(--scrim) calc(var(--scrim-a)*100%),transparent);padding:4px 10px;font:500 15px var(--fb)}
+</style></head><body><section class="frame" style="--surface:#0D1114;--raised:#161C20;--scrim:#080B0D;--text:#F2F4F5;--text2:#B9C1C6;--text3:#8E989F;--accent:#F2B33D;--friendly:#4AA8FF;--enemy:#FF6A3D;--objective:#F5D547;--warning:#FFB020;--critical:#FF6464;--success:#4FD48D;--focus:#FFFFFF;--halo:#050708;--scrim-a:0.86;background:linear-gradient(180deg,#ffffff 0%,#eef3f7 55%,#dfe7ee 100%);--fd:'Barlow Condensed';--fb:'Barlow'">
+ <div class="tag">operator · snow</div>
+ <div class="compass"><span>NW</span><span class="m obj">◆A</span><span>N</span><span class="m en">▼</span><span>NE</span></div>
+ <div class="feed"><div class="row"><b class="fr">KADE</b> ⟶ <b class="en">VOSS</b></div><div class="row me"><b class="fr">YOU</b> ⟶ <b class="en">RAIN</b></div></div>
+ <div class="reticle"></div>
+ <div class="prompt"><kbd>X</kbd> Revive Kade</div>
+ <div class="health"><div class="lbl">HEALTH</div><div class="bar"><i></i><i></i><i class="crit"></i><i class="off"></i></div><div class="crit-t">CRITICAL</div></div>
+ <div class="ammo"><div class="mag">07</div><div class="res">/ 120</div><div class="low">LOW AMMO</div><div class="wpn">M4 · AUTO</div></div>
+ <div class="sub"><b class="fr">Kade:</b> Two on the roof, moving to B.</div>
+</section><section class="frame" style="--surface:#0D1114;--raised:#161C20;--scrim:#080B0D;--text:#F2F4F5;--text2:#B9C1C6;--text3:#8E989F;--accent:#F2B33D;--friendly:#4AA8FF;--enemy:#FF6A3D;--objective:#F5D547;--warning:#FFB020;--critical:#FF6464;--success:#4FD48D;--focus:#FFFFFF;--halo:#050708;--scrim-a:0.86;background:linear-gradient(180deg,#05070a 0%,#0b1016 60%,#141a20 100%);--fd:'Barlow Condensed';--fb:'Barlow'">
+ <div class="tag">operator · night</div>
+ <div class="compass"><span>NW</span><span class="m obj">◆A</span><span>N</span><span class="m en">▼</span><span>NE</span></div>
+ <div class="feed"><div class="row"><b class="fr">KADE</b> ⟶ <b class="en">VOSS</b></div><div class="row me"><b class="fr">YOU</b> ⟶ <b class="en">RAIN</b></div></div>
+ <div class="reticle"></div>
+ <div class="prompt"><kbd>X</kbd> Revive Kade</div>
+ <div class="health"><div class="lbl">HEALTH</div><div class="bar"><i></i><i></i><i class="crit"></i><i class="off"></i></div><div class="crit-t">CRITICAL</div></div>
+ <div class="ammo"><div class="mag">07</div><div class="res">/ 120</div><div class="low">LOW AMMO</div><div class="wpn">M4 · AUTO</div></div>
+ <div class="sub"><b class="fr">Kade:</b> Two on the roof, moving to B.</div>
+</section><section class="frame" style="--surface:#071318;--raised:#0E1E25;--scrim:#03100F;--text:#E9FBFF;--text2:#A9D3DC;--text3:#7FA9B3;--accent:#41E0E8;--friendly:#5BB8FF;--enemy:#FF7043;--objective:#F7D84A;--warning:#FFB547;--critical:#FF6868;--success:#5BE39B;--focus:#FFFFFF;--halo:#050708;--scrim-a:0.86;background:linear-gradient(180deg,#ffffff 0%,#eef3f7 55%,#dfe7ee 100%);--fd:'Saira Condensed';--fb:'Saira'">
+ <div class="tag">spartan · snow</div>
+ <div class="compass"><span>NW</span><span class="m obj">◆A</span><span>N</span><span class="m en">▼</span><span>NE</span></div>
+ <div class="feed"><div class="row"><b class="fr">KADE</b> ⟶ <b class="en">VOSS</b></div><div class="row me"><b class="fr">YOU</b> ⟶ <b class="en">RAIN</b></div></div>
+ <div class="reticle"></div>
+ <div class="prompt"><kbd>X</kbd> Revive Kade</div>
+ <div class="health"><div class="lbl">HEALTH</div><div class="bar"><i></i><i></i><i class="crit"></i><i class="off"></i></div><div class="crit-t">CRITICAL</div></div>
+ <div class="ammo"><div class="mag">07</div><div class="res">/ 120</div><div class="low">LOW AMMO</div><div class="wpn">M4 · AUTO</div></div>
+ <div class="sub"><b class="fr">Kade:</b> Two on the roof, moving to B.</div>
+</section><section class="frame" style="--surface:#071318;--raised:#0E1E25;--scrim:#03100F;--text:#E9FBFF;--text2:#A9D3DC;--text3:#7FA9B3;--accent:#41E0E8;--friendly:#5BB8FF;--enemy:#FF7043;--objective:#F7D84A;--warning:#FFB547;--critical:#FF6868;--success:#5BE39B;--focus:#FFFFFF;--halo:#050708;--scrim-a:0.86;background:linear-gradient(180deg,#05070a 0%,#0b1016 60%,#141a20 100%);--fd:'Saira Condensed';--fb:'Saira'">
+ <div class="tag">spartan · night</div>
+ <div class="compass"><span>NW</span><span class="m obj">◆A</span><span>N</span><span class="m en">▼</span><span>NE</span></div>
+ <div class="feed"><div class="row"><b class="fr">KADE</b> ⟶ <b class="en">VOSS</b></div><div class="row me"><b class="fr">YOU</b> ⟶ <b class="en">RAIN</b></div></div>
+ <div class="reticle"></div>
+ <div class="prompt"><kbd>X</kbd> Revive Kade</div>
+ <div class="health"><div class="lbl">HEALTH</div><div class="bar"><i></i><i></i><i class="crit"></i><i class="off"></i></div><div class="crit-t">CRITICAL</div></div>
+ <div class="ammo"><div class="mag">07</div><div class="res">/ 120</div><div class="low">LOW AMMO</div><div class="wpn">M4 · AUTO</div></div>
+ <div class="sub"><b class="fr">Kade:</b> Two on the roof, moving to B.</div>
+</section><section class="frame" style="--surface:#101015;--raised:#1A1A22;--scrim:#0A0A0F;--text:#FFFFFF;--text2:#C4C4D0;--text3:#9696A6;--accent:#C6FF3D;--friendly:#4AA8FF;--enemy:#FF5A5F;--objective:#FFD23F;--warning:#FFB020;--critical:#FF6170;--success:#4FD48D;--focus:#FFFFFF;--halo:#050708;--scrim-a:0.86;background:linear-gradient(180deg,#ffffff 0%,#eef3f7 55%,#dfe7ee 100%);--fd:'Chakra Petch';--fb:'Barlow Semi Condensed'">
+ <div class="tag">arena · snow</div>
+ <div class="compass"><span>NW</span><span class="m obj">◆A</span><span>N</span><span class="m en">▼</span><span>NE</span></div>
+ <div class="feed"><div class="row"><b class="fr">KADE</b> ⟶ <b class="en">VOSS</b></div><div class="row me"><b class="fr">YOU</b> ⟶ <b class="en">RAIN</b></div></div>
+ <div class="reticle"></div>
+ <div class="prompt"><kbd>X</kbd> Revive Kade</div>
+ <div class="health"><div class="lbl">HEALTH</div><div class="bar"><i></i><i></i><i class="crit"></i><i class="off"></i></div><div class="crit-t">CRITICAL</div></div>
+ <div class="ammo"><div class="mag">07</div><div class="res">/ 120</div><div class="low">LOW AMMO</div><div class="wpn">M4 · AUTO</div></div>
+ <div class="sub"><b class="fr">Kade:</b> Two on the roof, moving to B.</div>
+</section><section class="frame" style="--surface:#101015;--raised:#1A1A22;--scrim:#0A0A0F;--text:#FFFFFF;--text2:#C4C4D0;--text3:#9696A6;--accent:#C6FF3D;--friendly:#4AA8FF;--enemy:#FF5A5F;--objective:#FFD23F;--warning:#FFB020;--critical:#FF6170;--success:#4FD48D;--focus:#FFFFFF;--halo:#050708;--scrim-a:0.86;background:linear-gradient(180deg,#05070a 0%,#0b1016 60%,#141a20 100%);--fd:'Chakra Petch';--fb:'Barlow Semi Condensed'">
+ <div class="tag">arena · night</div>
+ <div class="compass"><span>NW</span><span class="m obj">◆A</span><span>N</span><span class="m en">▼</span><span>NE</span></div>
+ <div class="feed"><div class="row"><b class="fr">KADE</b> ⟶ <b class="en">VOSS</b></div><div class="row me"><b class="fr">YOU</b> ⟶ <b class="en">RAIN</b></div></div>
+ <div class="reticle"></div>
+ <div class="prompt"><kbd>X</kbd> Revive Kade</div>
+ <div class="health"><div class="lbl">HEALTH</div><div class="bar"><i></i><i></i><i class="crit"></i><i class="off"></i></div><div class="crit-t">CRITICAL</div></div>
+ <div class="ammo"><div class="mag">07</div><div class="res">/ 120</div><div class="low">LOW AMMO</div><div class="wpn">M4 · AUTO</div></div>
+ <div class="sub"><b class="fr">Kade:</b> Two on the roof, moving to B.</div>
+</section><section class="frame" style="--surface:#0B0B0A;--raised:#151513;--scrim:#050505;--text:#E6E1D6;--text2:#B3AD9F;--text3:#8E897D;--accent:#C9A66B;--friendly:#6FB3E8;--enemy:#EC7550;--objective:#E8E0A8;--warning:#E0A040;--critical:#F26464;--success:#6CC28E;--focus:#FFFFFF;--halo:#050708;--scrim-a:0.86;background:linear-gradient(180deg,#ffffff 0%,#eef3f7 55%,#dfe7ee 100%);--fd:'IBM Plex Sans Condensed';--fb:'IBM Plex Sans'">
+ <div class="tag">dread · snow</div>
+ <div class="compass"><span>NW</span><span class="m obj">◆A</span><span>N</span><span class="m en">▼</span><span>NE</span></div>
+ <div class="feed"><div class="row"><b class="fr">KADE</b> ⟶ <b class="en">VOSS</b></div><div class="row me"><b class="fr">YOU</b> ⟶ <b class="en">RAIN</b></div></div>
+ <div class="reticle"></div>
+ <div class="prompt"><kbd>X</kbd> Revive Kade</div>
+ <div class="health"><div class="lbl">HEALTH</div><div class="bar"><i></i><i></i><i class="crit"></i><i class="off"></i></div><div class="crit-t">CRITICAL</div></div>
+ <div class="ammo"><div class="mag">07</div><div class="res">/ 120</div><div class="low">LOW AMMO</div><div class="wpn">M4 · AUTO</div></div>
+ <div class="sub"><b class="fr">Kade:</b> Two on the roof, moving to B.</div>
+</section><section class="frame" style="--surface:#0B0B0A;--raised:#151513;--scrim:#050505;--text:#E6E1D6;--text2:#B3AD9F;--text3:#8E897D;--accent:#C9A66B;--friendly:#6FB3E8;--enemy:#EC7550;--objective:#E8E0A8;--warning:#E0A040;--critical:#F26464;--success:#6CC28E;--focus:#FFFFFF;--halo:#050708;--scrim-a:0.86;background:linear-gradient(180deg,#05070a 0%,#0b1016 60%,#141a20 100%);--fd:'IBM Plex Sans Condensed';--fb:'IBM Plex Sans'">
+ <div class="tag">dread · night</div>
+ <div class="compass"><span>NW</span><span class="m obj">◆A</span><span>N</span><span class="m en">▼</span><span>NE</span></div>
+ <div class="feed"><div class="row"><b class="fr">KADE</b> ⟶ <b class="en">VOSS</b></div><div class="row me"><b class="fr">YOU</b> ⟶ <b class="en">RAIN</b></div></div>
+ <div class="reticle"></div>
+ <div class="prompt"><kbd>X</kbd> Revive Kade</div>
+ <div class="health"><div class="lbl">HEALTH</div><div class="bar"><i></i><i></i><i class="crit"></i><i class="off"></i></div><div class="crit-t">CRITICAL</div></div>
+ <div class="ammo"><div class="mag">07</div><div class="res">/ 120</div><div class="low">LOW AMMO</div><div class="wpn">M4 · AUTO</div></div>
+ <div class="sub"><b class="fr">Kade:</b> Two on the roof, moving to B.</div>
+</section></body></html>
