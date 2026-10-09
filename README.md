@@ -5,6 +5,10 @@
 - [`DESIGN_SYSTEM.md`](DESIGN_SYSTEM.md) — the deliverable: principles, mood dials and four themes (Operator, Spartan,
   Arena, Dread), colour/type/space/motion tokens, HUD architecture, components, input, accessibility floors,
   what to do in each game state, engine handoff (Unity, Unreal, Godot), pre-flight checklist, agent prompt guide.
+- `index.html` + `showcase.css` + `showcase.js` — live showcase of every HUD and front-end element (GitHub Pages
+  root). Theme, scene (incl. worst-case snow/desert), colour-vision simulation, controller/keyboard glyphs, text size and
+  reduced motion are switchable; HUD events (hit, kill, damage, reload, ability, ping, capture, scoreboard) are live.
+  Colours load from `tokens.json` (`python scripts/export_tokens.py` after editing the spec).
 - `scripts/check_contrast.py` — reads the token block in DESIGN_SYSTEM.md; checks WCAG contrast on every backing
   (incl. worst-case bright scene) and friend/enemy/objective separation under protan/deutan/tritan simulation.
 - `scripts/build_specimen.py` — renders `specimen/index.html` (sample HUD per theme on snow and night scenes);

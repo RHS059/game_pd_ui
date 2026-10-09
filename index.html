@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FIELD · FPS UI design system</title>
+<meta name="description" content="Live showcase of FIELD, an accessible, themable UI design system for 3D shooters.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@500;600&family=Barlow+Condensed:wght@500;600&family=Barlow+Semi+Condensed:wght@500;600&family=Chakra+Petch:wght@600;700&family=IBM+Plex+Sans+Condensed:wght@500;600&family=IBM+Plex+Sans:wght@500;600&family=JetBrains+Mono:wght@500&family=Saira+Condensed:wght@600&family=Saira:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="showcase.css">
+</head>
+<body data-theme="operator" data-scene="night" data-input="kbm">
+<svg width="0" height="0" aria-hidden="true" style="position:absolute">
+ <filter id="cvd-protan" color-interpolation-filters="linearRGB"><feColorMatrix type="matrix" values="0.11238 0.88762 0 0 0  0.11238 0.88762 0 0 0  0.00401 -0.00401 1 0 0  0 0 0 1 0"/></filter>
+ <filter id="cvd-deutan" color-interpolation-filters="linearRGB"><feColorMatrix type="matrix" values="0.29275 0.70725 0 0 0  0.29275 0.70725 0 0 0  -0.02234 0.02234 1 0 0  0 0 0 1 0"/></filter>
+ <filter id="cvd-tritan" color-interpolation-filters="linearRGB"><feColorMatrix type="matrix" values="1.255528 -0.076749 -0.178779 0 0  -0.078411 0.930809 0.147602 0 0  0.004733 0.691367 0.3039 0 0  0 0 0 1 0"/></filter>
+</svg>
+<a class="skip" href="#hud">Skip to the live HUD</a>
+
+<header class="top">
+ <div class="brand"><span class="mark" aria-hidden="true"></span>FIELD <small>FPS UI design system</small></div>
+ <nav aria-label="Sections"><a href="#hud">HUD</a><a href="#frontend">Front end</a><a href="#tokens">Tokens</a><a href="#a11y">Accessibility</a><a href="https://github.com/RHS059/game_pd_ui/blob/claude/ugv-cad-realism-zbrycm/DESIGN_SYSTEM.md">Spec</a></nav>
+ <div class="controls" role="group" aria-label="Showcase settings">
+  <label>Theme <select id="theme"><option value="operator">Operator</option><option value="spartan">Spartan</option><option value="arena">Arena</option><option value="dread">Dread</option></select></label>
+  <label>Scene <select id="scene"><option value="night">Night</option><option value="snow">Snow</option><option value="forest">Forest</option><option value="desert">Desert</option></select></label>
+  <label>Colour vision <select id="cvd"><option value="none">Typical</option><option value="protan">Protanopia (sim)</option><option value="deutan">Deuteranopia (sim)</option><option value="tritan">Tritanopia (sim)</option></select></label>
+  <label>Input <select id="input"><option value="kbm">Keyboard &amp; mouse</option><option value="pad">Controller</option></select></label>
+  <label>Text size <input id="ts" type="range" min="80" max="200" step="10" value="100" aria-valuetext="100 percent"><output id="tsv">100%</output></label>
+  <label class="chk"><input id="rm" type="checkbox"> Reduced motion</label>
+ </div>
+</header>
+
+<main id="main">
+<section id="hud" aria-labelledby="hud-h">
+ <div class="sec-head"><h2 id="hud-h">Live HUD</h2><p>Every HUD module from the spec on one 16:9 canvas, sized in 1080p reference pixels. Switch scene to Snow to see the halo and 86 % scrim hold contrast on the worst-case background.</p></div>
+ <div class="viewport" id="vp" role="img" aria-label="Sample in-game HUD. Use the event buttons below to trigger HUD feedback.">
+  <div class="scene"></div>
+  <div class="vignette" id="vign"></div>
+
+  <div class="h-compass" data-mod="standard"><div class="ticks" id="ticks"></div><div class="heading">NW <b>318°</b></div></div>
+  <div class="h-score" data-mod="standard"><span class="fr">74</span><span class="time">03:12</span><span class="en">68</span></div>
+  <div class="h-minimap" data-mod="standard"><div class="mm-grid"></div><i class="mm-obj">B</i><i class="mm-en"></i><i class="mm-fr"></i><i class="mm-me"></i></div>
+  <ol class="h-feed" id="feed" data-mod="standard" aria-label="Kill feed"></ol>
+
+  <div class="h-marker fr" style="left:30%;top:47%"><span class="shape"></span><span class="mtxt">KADE <em>18 m</em></span></div>
+  <div class="h-marker en" style="left:63%;top:42%"><span class="shape"></span><span class="mtxt">42 m</span></div>
+  <div class="h-marker obj" style="left:46%;top:33%"><span class="shape">B</span><span class="mtxt">CAPTURE <em>96 m</em></span></div>
+  <div class="h-marker ping" id="ping" hidden style="left:72%;top:55%"><span class="shape">!</span><span class="mtxt">ENEMY SPOTTED</span></div>
+  <div class="h-offscreen" style="right:6.5%;top:35%"><span class="shape">A</span><span class="arrow">▶</span></div>
+
+  <div class="h-reticle" id="ret"><i></i><i></i><i></i><i></i><b></b></div>
+  <div class="h-hit" id="hit"><i></i><i></i><i></i><i></i></div>
+  <svg class="h-dmg" id="dmg" viewBox="-100 -100 200 200" aria-hidden="true"><path d="M -38 -82 A 90 90 0 0 1 38 -82"/></svg>
+
+  <div class="h-notes" id="notes" aria-live="polite"></div>
+  <div class="h-medal" id="medal" hidden></div>
+
+  <div class="h-prompt"><span class="glyph" data-k="E" data-p="X"></span><svg class="hold" viewBox="0 0 36 36"><circle cx="18" cy="18" r="16"/></svg> Hold to revive Kade</div>
+  <div class="h-sub" data-mod="standard"><b class="fr">Kade:</b> Two on the roof, moving to B.</div>
+
+  <div class="h-squad" data-mod="standard"><div><b>KADE</b><i style="--v:.7"></i></div><div><b>MORROW</b><i style="--v:1"></i></div><div class="down"><b>ASH</b><span>DOWN</span></div></div>
+  <div class="h-health" id="health"><div class="lbl">SHIELD</div><div class="seg shield" id="shield"><i></i><i></i><i></i></div><div class="lbl">HEALTH <span id="hpn">100</span></div><div class="seg hp" id="hp"><i></i><i></i><i></i><i></i></div><div class="crit-t" id="critT" hidden>CRITICAL · HEAL <span class="glyph" data-k="4" data-p="↑"></span></div></div>
+  <div class="h-ammo" id="ammo"><div class="eq"><div class="slot" id="eq1"><span>FRAG</span><b class="glyph" data-k="G" data-p="RB"></b><em>2</em></div><div class="slot" id="eq2"><span>DASH</span><b class="glyph" data-k="Q" data-p="LB"></b></div></div><div class="mag" id="mag">30</div><div class="res">/ 120</div><div class="lowtxt" id="low" hidden>LOW AMMO</div><div class="wpn">M4A1 · AUTO</div></div>
+
+  <div class="h-board" id="board" hidden><div class="b-head"><span class="fr">ALPHA 74</span><span>TEAM DEATHMATCH · 03:12</span><span class="en">68 BRAVO</span></div><table><thead><tr><th>#</th><th>Player</th><th>Score</th><th>K / D / A</th><th>Ping</th></tr></thead><tbody id="boardBody"></tbody></table></div>
+ </div>
+ <div class="events" role="group" aria-label="Trigger HUD events">
+  <button data-ev="hit">Hit</button><button data-ev="head">Headshot</button><button data-ev="kill">Kill</button><button data-ev="dmg">Take damage</button><button data-ev="fire">Fire 8 rounds</button><button data-ev="reload">Reload</button><button data-ev="ability">Use ability</button><button data-ev="ping">Ping</button><button data-ev="cap">Capture objective</button><button data-ev="board" aria-pressed="false">Scoreboard</button><button data-ev="heal">Reset</button>
+  <label>Density <select id="density"><option value="minimal">Minimal</option><option value="standard" selected>Standard</option><option value="full">Full</option></select></label>
+ </div>
+</section>
+
+<section id="frontend" aria-labelledby="fe-h">
+ <div class="sec-head"><h2 id="fe-h">Front end</h2><p>Menus are controller-first with mouse parity. Use Tab/arrow keys: focus is always visible, Back always goes up one level.</p></div>
+
+ <div class="screen">
+  <div class="scr-title"><h3>LOADOUT</h3><span class="crumb">Multiplayer / Loadouts / Assault 1</span></div>
+  <div class="tabs" role="tablist" aria-label="Loadout categories"><span class="glyph" data-k="Q" data-p="LB"></span><button role="tab" aria-selected="true">Weapons</button><button role="tab" aria-selected="false">Equipment</button><button role="tab" aria-selected="false">Perks</button><button role="tab" aria-selected="false">Operator</button><span class="glyph" data-k="E" data-p="RB"></span></div>
+  <div class="scr-body">
+   <div class="tiles" id="tiles"></div>
+   <div class="compare"><h4>M4A1 → AK-74</h4><div id="cmp"></div></div>
+  </div>
+  <div class="footer-bar"><span><b class="glyph" data-k="Enter" data-p="A"></b> Equip</span><span><b class="glyph" data-k="F" data-p="Y"></b> Inspect</span><span><b class="glyph" data-k="Esc" data-p="B"></b> Back</span></div>
+ </div>
+
+ <div class="grid2">
+  <div class="card"><h3>Buttons</h3>
+   <div class="btns"><button class="b-primary">Find match</button><button class="b-secondary">Edit loadout</button><button class="b-quiet">Details</button></div>
+   <div class="btns"><button class="b-destroy" id="del"><span class="fill"></span><span class="t">Hold to delete loadout</span></button><button class="b-secondary" disabled aria-describedby="why">Ranked play</button><span class="why" id="why">Unlocks at level 12</span></div>
+  </div>
+  <div class="card"><h3>Settings</h3>
+   <div class="settings">
+    <div class="rows" id="rows">
+     <div class="row" tabindex="0" data-help="Show dialogue and important sounds as text. On by default."><span>Subtitles</span><button class="switch" role="switch" aria-checked="true">On</button></div>
+     <div class="row" tabindex="0" data-help="Subtitle text size. Large is 46 px at 1080p."><span>Subtitle size</span><span class="cycler"><button aria-label="Previous">‹</button><b>Large</b><button aria-label="Next">›</button></span></div>
+     <div class="row" tabindex="0" data-help="Opacity of every HUD module. Critical warnings stay at full strength."><span>HUD opacity</span><input type="range" min="0" max="100" value="100" aria-label="HUD opacity"></div>
+     <div class="row" tabindex="0" data-help="Replaces team, enemy and objective colours with a tested set. Shapes never change."><span>Colour-vision mode</span><span class="cycler"><button aria-label="Previous">‹</button><b>Off</b><button aria-label="Next">›</button></span></div>
+     <div class="row" tabindex="0" data-help="Hold or toggle for aim, sprint, scoreboard and interact."><span>Aim input</span><span class="cycler"><button aria-label="Previous">‹</button><b>Hold</b><button aria-label="Next">›</button></span></div>
+    </div>
+    <p class="help" id="help" aria-live="polite">Focus a setting to see what it does.</p>
+   </div>
+  </div>
+  <div class="card"><h3>Progression</h3>
+   <div class="xp"><div class="xp-top"><b>LEVEL 23</b><span id="xpn">7 450 / 10 000 XP</span></div><div class="xp-bar"><i id="xpfill" style="--v:.745"></i></div><button class="b-quiet" id="xpbtn">+1 800 XP</button></div>
+   <div class="unlock"><span class="u-icon" aria-hidden="true"></span><div><small>UNLOCKED</small><b>Thermal optic</b><span>For M4A1 · Weapon level 18</span></div></div>
+  </div>
+  <div class="card"><h3>Store item</h3>
+   <div class="store"><div class="s-art" aria-hidden="true"></div><div><b>Night Raid bundle</b><ul><li>Operator skin · Legendary</li><li>Weapon blueprint · Epic</li><li>Calling card</li></ul><div class="price"><b>1 200 points</b><span>≈ $9.99</span></div><small>Available until 16 Oct, 18:00 UTC</small></div></div>
+  </div>
+  <div class="card"><h3>Matchmaking</h3>
+   <div class="mm"><b>Searching for a match</b><span>Team Deathmatch · Party of 3</span><div class="mm-t"><span>Elapsed <b id="mmt">0:00</b></span><span>Estimated 0:45</span></div><button class="b-secondary">Cancel <span class="glyph" data-k="Esc" data-p="B"></span></button></div>
+  </div>
+  <div class="card"><h3>Modal</h3>
+   <button class="b-secondary" id="openModal">Leave the match…</button>
+   <dialog id="modal" aria-labelledby="mh"><h3 id="mh">Leave the match?</h3><p>You will lose this match's XP and your team will play one short until someone joins.</p><div class="btns"><button class="b-destroy-plain" value="leave">Leave</button><button class="b-primary" value="stay" autofocus>Stay</button></div></dialog>
+  </div>
+ </div>
+</section>
+
+<section id="tokens" aria-labelledby="tk-h">
+ <div class="sec-head"><h2 id="tk-h">Tokens</h2><p>Loaded from <code>tokens.json</code>, exported from the token block in <code>DESIGN_SYSTEM.md</code>. Ratios are computed live: on menu surface, and over the world (86 % scrim on a pure-white scene).</p></div>
+ <div class="swatches" id="sw"></div>
+ <div class="grid2">
+  <div class="card"><h3>Type scale (1080p reference)</h3><div class="type" id="type"></div></div>
+  <div class="card"><h3>Motion</h3><div class="motion" id="motion"></div><p class="note">Reduced motion turns every one of these into an instant change.</p></div>
+ </div>
+</section>
+
+<section id="a11y" aria-labelledby="ax-h">
+ <div class="sec-head"><h2 id="ax-h">Accessibility floors</h2><p>No theme may lower these. Try the header controls: text size, colour-vision simulation and reduced motion apply to the whole page.</p></div>
+ <ul class="floors">
+  <li><b>Text</b> ≥ 26 px at 1080p on TV, slider 80–200 %.</li>
+  <li><b>Contrast</b> 4.5:1 on every backing, including bright scenes; 3:1 for icons and bars.</li>
+  <li><b>Never colour alone</b>: friend ◆, enemy ▼, objective ■ with letters; rarity with names and pips.</li>
+  <li><b>Subtitles</b> on at first launch, 86 % scrim, speaker names, up to 64 px.</li>
+  <li><b>Motion</b>: reduced-motion mode, HUD shake off, no more than 3 flashes per second.</li>
+  <li><b>Input</b>: full remap, hold or toggle for every hold, no press shorter than 300 ms.</li>
+ </ul>
+</section>
+</main>
+<footer class="foot">FIELD · <a href="https://github.com/RHS059/game_pd_ui/blob/claude/ugv-cad-realism-zbrycm/DESIGN_SYSTEM.md">DESIGN_SYSTEM.md</a> · <a href="https://github.com/RHS059/game_pd_ui">Repository</a> · Fonts: SIL Open Font License</footer>
+<script src="showcase.js" defer></script>
+</body>
+</html>
