@@ -161,9 +161,21 @@ simulated protanopia, deuteranopia and tritanopia. Run `python scripts/check_con
 
 ### 3.3 Rules
 
-- **Over the world, text needs backing.** HUD glyphs drawn straight over the scene get a 2 px halo (outline) in `halo`
-  plus a soft 4 px shadow at 50 %. Blocks of text (killfeed rows, prompts with more than three words, subtitles) sit on
-  `scrim` at 86 %. A 60 % scrim over snow or sky drops coloured text to 2–3:1, so never go lighter than 86 %.
+- **Over the world, text needs backing.** A thin outline alone fails over real scenes (sand, sky, foliage, neon):
+  measured on 10 real day/night scenes, 711 of 1 560 HUD element checks fell below 4.5:1 with only a 2 px halo.
+  Three layers, all required:
+  1. **Cluster shade:** every HUD cluster drawn over the world (health/squad, ammo/equipment, score, compass, minimap)
+     sits on a soft-edged shade: a solid core in `scrim` at 86 % under the content, feathered 40 ref-px outside it.
+  2. **Tag plate:** single labels in mid-screen (marker names, distances, off-screen markers) sit on a `scrim` 86 %
+     plate with 8 ref-px side padding. Killfeed rows, prompts, notifications and subtitles already do.
+  3. **Glyph halo:** 2 ref-px outline in `halo` + soft shadow on every HUD glyph, as the edge-contrast backup.
+  The reticle is the one exception (it cannot be shaded): 2 ref-px outline and a player-selectable colour.
+- **Verify on real scenes, not flat colours.** `scripts/scene_contrast.js` + `scene_contrast.py` render the HUD over
+  every scene × theme, hide the glyphs, and score each element against the brightest 5 % of pixels behind it (halo not
+  counted): text ≥ 4.5:1, bars ≥ 3:1. Current result: 0 / 1 360 below minimum.
+- **The weapon is part of the scene.** Test with the first-person viewmodel in place. Keep the viewmodel in the lower-right
+  third, below the reticle line. Only the ammo/equipment cluster may overlap it; prompts, subtitles and notifications must
+  not (the scene check fails any other module covering more than 2 % opaque weapon pixels).
 - **Non-text signals** (bars, markers, icons, focus rings) need 3:1 against what is behind them (WCAG 1.4.11). The halo
   gives this over any scene.
 - **Accent budget:** under 10 % of screen pixels in menus, under 2 % on the HUD at rest.
@@ -591,7 +603,7 @@ the pre-flight screenshots (section 16) on the brightest and darkest map.
 Before a screen or HUD module ships:
 
 - [ ] `python scripts/check_contrast.py` passes for every shipped theme.
-- [ ] Screenshot on the brightest (snow/sky) and darkest map: every HUD glyph readable with halo/scrim.
+- [ ] `scripts/scene_contrast.*` passes: every HUD element ≥ 4.5:1 (text) / 3:1 (bars) on every scene × theme with the weapon in place, and no module other than ammo/equipment over the weapon.
 - [ ] 1080p TV at 3 m: smallest text ≥ 26 px, read by someone who did not build it.
 - [ ] Colour-vision check in the script passes (ΔE ≥ 20 for friend/enemy/objective, protan/deutan/tritan) and screenshots through a CVD filter show rarity still readable by name and pips.
 - [ ] Reduced motion on: no slides, pops or parallax remain; no element flashes > 3/s.

@@ -132,7 +132,7 @@ body[data-input=pad] .glyph { border-radius:999px; min-width:1.7em }
 .h-prompt .hold { width:calc(36*var(--p)); height:calc(36*var(--p)); margin-left:calc(-46*var(--p)); transform:rotate(-90deg) }
 .h-prompt .hold circle { fill:none; stroke:var(--accent); stroke-width:3; stroke-dasharray:100.5; stroke-dashoffset:100.5 }
 .h-prompt.holding .hold circle { stroke-dashoffset:0; transition:stroke-dashoffset 1s linear }
-.h-sub { position:absolute; left:50%; bottom:calc(190*var(--p)); transform:translateX(-50%); max-width:calc(1000*var(--p)); padding:calc(6*var(--p)) calc(16*var(--p)); font:500 calc(32*var(--sz)) var(--fb); background:color-mix(in srgb, var(--scrim) calc(var(--scrim-a)*100%), transparent) }
+.h-sub { position:absolute; left:50%; bottom:calc(250*var(--p)); transform:translateX(-50%); max-width:calc(1000*var(--p)); padding:calc(6*var(--p)) calc(16*var(--p)); font:500 calc(32*var(--sz)) var(--fb); background:color-mix(in srgb, var(--scrim) calc(var(--scrim-a)*100%), transparent) }
 
 /* squad, health, ammo */
 .h-squad { position:absolute; left:calc(96*var(--p)); bottom:calc(250*var(--p)); display:grid; gap:calc(6*var(--p)); font:600 calc(26*var(--sz)) var(--fd); letter-spacing:.05em; color:var(--friendly) }
@@ -253,3 +253,29 @@ dialog::backdrop { background:color-mix(in srgb, var(--scrim) 80%, transparent) 
 .floors li { background:var(--raised); padding:14px; border-left:3px solid var(--accent) }
 .foot { text-align:center; padding:24px; color:var(--text2); font-size:.9em }
 @media (max-width:700px) { .top { position:static; padding:10px 16px } nav a { white-space:nowrap } main { padding:0 16px 40px } .controls { margin-left:0 } }
+
+/* ---------- legibility over real scenes (DESIGN_SYSTEM §3.3) ----------
+   Clusters sit on a soft-edged shade: solid core at the scrim alpha under the content, 40 ref-px feather outside it.
+   Mid-screen labels get a tag plate. The glyph halo stays on top as a second layer. */
+.viewport { --shade:color-mix(in srgb, var(--scrim) calc(var(--scrim-a) * 100%), transparent) }
+.h-health, .h-squad, .h-ammo, .h-score, .h-compass { isolation:isolate }
+.h-health::before, .h-squad::before, .h-ammo::before, .h-score::before, .h-compass::before {
+  content:''; position:absolute; z-index:-1; inset:calc(-10*var(--p)) calc(-16*var(--p)); background:var(--shade);
+  box-shadow:0 0 calc(40*var(--p)) calc(22*var(--p)) var(--shade); pointer-events:none }
+.h-compass::before { inset:calc(-72*var(--p)) calc(-24*var(--p)) calc(-8*var(--p)) }
+.h-ammo::before { inset:calc(-10*var(--p)) calc(-16*var(--p)) calc(-10*var(--p)) calc(-16*var(--p)) }
+.h-minimap { background:var(--shade) }
+.h-marker .mtxt { background:var(--shade); padding:0 calc(8*var(--p)) }
+.h-offscreen { background:var(--shade); padding:calc(4*var(--p)) calc(8*var(--p)) }
+.h-marker .shape, .h-offscreen .shape { box-shadow:0 0 0 calc(2*var(--p)) var(--halo) }
+.h-reticle i, .h-reticle b { box-shadow:0 0 0 calc(2*var(--p)) var(--halo) }
+
+/* first-person weapon: under the HUD, above the world; 78 % scale anchored bottom-right keeps it below the reticle line */
+.viewmodel { position:absolute; right:-6%; bottom:0; width:78%; height:auto; z-index:0; pointer-events:none; user-select:none }
+.viewport > [class^=h-], .viewport > .vignette { z-index:1 }
+
+/* measurement mode (scripts/scene_contrast.js): hide glyphs and bars, keep shades/plates */
+body.measure .viewport [class^=h-], body.measure .viewport [class^=h-] * { color:transparent !important; text-shadow:none !important; border-color:transparent !important }
+body.measure .viewport :is(.seg i, .h-squad i, .h-reticle i, .h-reticle b, .h-marker .shape, .h-offscreen .shape, .ticks i, .h-minimap i, .glyph) { background:transparent !important; box-shadow:none !important; border-color:transparent !important }
+body.measure .h-dmg, body.measure .h-hit, body.measure .vignette { display:none }
+body.measure * { transition:none !important; animation:none !important }

@@ -29,7 +29,7 @@ function bindControls() {
   rm.checked = load('rm', matchMedia('(prefers-reduced-motion: reduce)').matches ? '1' : '0') === '1';
   const sync = () => {
     applyTheme(theme.value);
-    const sc = `${scene.value}_${tod.value}`; body.dataset.scene = sc; $('.scene').style.backgroundImage = `url(scenes/${sc}.jpg)`;
+    const sc = `${scene.value}_${tod.value}`; body.dataset.scene = sc; $('.scene').style.backgroundImage = `url(scenes/${sc}.jpg)`; $('#vm').src = `weapon/viewmodel_${tod.value}.webp`;
     save('loc', scene.value); save('tod', tod.value);
     body.className = body.className.replace(/cvd-\w+/g, '').trim(); if (cvd.value !== 'none') body.classList.add('cvd-' + cvd.value); save('cvd', cvd.value);
     setInput(input.value);
@@ -174,7 +174,10 @@ function buildTypeMotion() {
 
 // ---------- boot ----------
 // Preload the other scenes so switching is instant.
-addEventListener('load', () => ['city', 'field', 'desert', 'forest', 'beach'].forEach(l => ['day', 'night'].forEach(t => { new Image().src = `scenes/${l}_${t}.jpg`; })));
+addEventListener('load', () => {
+  for (const l of ['city', 'field', 'desert', 'forest', 'beach']) for (const t of ['day', 'night']) new Image().src = `scenes/${l}_${t}.jpg`;
+  for (const t of ['day', 'night']) new Image().src = `weapon/viewmodel_${t}.webp`;
+});
 (async () => {
   try { TOKENS = await (await fetch('tokens.json', { cache: 'no-cache' })).json(); } catch { TOKENS = FALLBACK; }
   bindControls(); bindHud(); buildFrontEnd(); buildTypeMotion(); setInput(body.dataset.input);

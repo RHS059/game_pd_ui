@@ -11,6 +11,9 @@
   Colours load from `tokens.json` (`python scripts/export_tokens.py` after editing the spec).
 - `scenes/` — 10 gameplay backgrounds (urban city, grassy field, desert, forest, beach town × day/night), generated with
   Krea 2 Turbo, first-person eye level, no HUD/text, saved as 1376×768 JPEG.
+- `weapon/` — day/night first-person arms + rifle cut-outs (Krea, transparent WebP) composited under the HUD.
+- `scripts/scene_contrast.js` + `.py` — renders the HUD over all 10 scenes × 4 themes with the weapon, scores every
+  element against the real pixels behind it (halo not counted) and flags HUD modules that sit on the weapon.
 - `scripts/check_contrast.py` — reads the token block in DESIGN_SYSTEM.md; checks WCAG contrast on every backing
   (incl. worst-case bright scene) and friend/enemy/objective separation under protan/deutan/tritan simulation.
 - `scripts/build_specimen.py` — renders `specimen/index.html` (sample HUD per theme on snow and night scenes);
